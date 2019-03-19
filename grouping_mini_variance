@@ -1,0 +1,52 @@
+# given a set of arbitrary numbers, practical solution to make them into groups so that variables within one
+# one group is minimized
+
+# step 1: define a function that you can feed with list of numbers and also choose how many elements you want each group to have
+# step 2: sorted these numbers in lexicographical order
+# step 3: divide them into groups based on your choice of group numbers
+# Step 4: iterate all possibilities of number of elements in find_optimal function
+
+
+def grouping(l,n):
+    #l is a list of arbitrary numbers, n is the number of groups you want them to be divided into
+    gap = 0 
+    gap_l = []
+    
+    l_sorted = sorted(l)
+    l_group = list(l_sorted[i:i+n] for i in range(0,len(l_sorted),n))
+    for item in l_group:
+        gap = max(item) - min(item)
+        gap_l.append(gap)
+    
+    
+    #print(l_group)
+    return sum(gap_l)
+    
+    
+def find_optimal_grouping(l):
+
+    variance_list = []
+    group_num_list = []
+    for i in range(2,len(ll)): # i represents how many elements there are in most group
+        variance_list.append(grouping(l,i))
+        group_num_list.append(round(len(l)/i))
+    
+    #print("As you can see, most groups have",str(i),"elements. So, we get",str(round(len(ll)/i)),"groups!")
+    #print("The sum of variables in each groups is", str(sum([i for i in variance_list])))
+
+    vari_2_gn = dict(zip(variance_list,group_num_list))
+    min_gap_sum = min(variance_list)
+    min_group = vari_2_gn[min_gap_sum]
+
+    print("So, the optimal choice that can minimize the sum of variance are to divide the numbers into",
+           str(min_group),"groups so that the sum of variables are", str(min_gap_sum),
+          "The corresponding grouping is",list(sorted(l)[i:i+round(len(l)/min_group)] for i in range(0,len(sorted(l)),round(len(l)/min_group))))
+
+# input: ll = [1,3,15,19,20,6,8,12,23,5,78,32,68,34,1,2,4,23,56,23,86,12,32,3]
+# then: find_optimal_grouping(ll)
+# output: So, the optimal choice that can minimize the sum of variance are to divide the numbers into 12 groups 
+# so that the sum of variables are 42 The corresponding grouping is 
+# [[1, 1], [2, 3], [3, 4], [5, 6], [8, 12], [12, 15], [19, 20], [23, 23], [23, 32], [32, 34], [56, 68], [78, 86]]
+
+
+
