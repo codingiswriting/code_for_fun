@@ -1,4 +1,4 @@
-# beauty
+# codeforfun
 This repsitory includes all the small tools I developed to fulfill some simple but useful purpose
 
 List of contents:
